@@ -1,0 +1,39 @@
+{
+  "name": "react-UI",
+  "version": "1.0.0",
+  "description": "react+webpack+typescript+scss造轮子",
+  "main": "index.js",
+  "scripts": {
+    "clear": "rimraf dist",
+    "build:dev": "webpack --config build/webpack.config.dev.js",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.dev.js",
+    "build": "npm run clear && npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dsying/react-wheel.git"
+  },
+  "keywords": [],
+  "author": "dsying",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dsying/react-wheel/issues"
+  },
+  "homepage": "https://github.com/dsying/react-wheel#readme",
+  "devDependencies": {
+    "@types/react": "^16.8.7",
+    "@types/react-dom": "^16.8.2",
+    "awesome-typescript-loader": "^5.2.1",
+    "cross-env": "^5.2.0",
+    "html-webpack-plugin": "^3.2.0",
+    "rimraf": "^2.6.3",
+    "typescript": "^3.3.3333",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.2.1"
+  },
+  "dependencies": {
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
+  }
+}

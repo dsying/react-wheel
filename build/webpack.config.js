@@ -12,14 +12,18 @@ module.exports = {
     libraryTarget: 'umd',
   },
   resolve: {
-    extensions: [ '.js', '.jsx', '.ts', '.tsx' ] // 自动解析确定的扩展
+    extensions: ['.ts', '.tsx', '.js', '.jsx'], // 自动解析确定的扩展
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         loader: 'awesome-typescript-loader'
-      }
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-sprite-loader',
+      },
     ]
   },
   plugins: [
@@ -27,3 +31,4 @@ module.exports = {
       template: path.join(__dirname, '../index.html')
     })
   ],
+};

@@ -1,5 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Button from './button';
+import Icon from './icon';
 
-ReactDOM.render(<Button/>, document.querySelector('#root'))
+ReactDOM.render(<Icon name='weixin'/>, document.querySelector('#root'));

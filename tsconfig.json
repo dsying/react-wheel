@@ -23,7 +23,7 @@
     "noUnusedLocals": true
   },
   "include": [
-    "lib/**/*"
+    "lib/**/*" // 声明 这里面都是ts的源文件
   ],
   "exclude": [
     "node_modules",

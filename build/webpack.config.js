@@ -24,6 +24,19 @@ module.exports = {
         test: /\.svg$/,
         loader: 'svg-sprite-loader',
       },
+      {
+        test: /\.scss$/,
+        loader: [
+          'style-loader',
+          {
+            loader: "css-loader",
+            options: {
+              modules: true, // 这将启用局部作用域 CSS
+            }
+          },
+          'sass-loader'
+        ],
+      },
     ]
   },
   plugins: [

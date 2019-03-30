@@ -16,9 +16,14 @@ module.exports = {
   },
   module: {
     rules: [
+      // {
+      //   test: /\.tsx?$/,
+      //   loader: 'awesome-typescript-loader', // 使用 awesome-typescript-loader 来读取标准的 tsconfig.json 配置文件，从而来编译 TypeScript
+      // },
       {
-        test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader'
+        test: /\.tsx?/,
+        exclude: /node_modules/,
+        loader: 'babel-loader', //直接通过强大的 babel-loader 来处理
       },
       {
         test: /\.svg$/,

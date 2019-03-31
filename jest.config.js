@@ -8,10 +8,19 @@ module.exports = {
   // rootDir 默认为 jest.config.js 或者 package.json 所在目录， 如果没找到 package.json 则为 pwd(当前目录)
   // 显示所有的错误
   verbose: true,
-  //生成测试覆盖率报告
+
+  // 生成测试覆盖率报告(命令行中显示)
   collectCoverage: true,
-  reporters: ["default"],
-  //模块使用的文件扩展名数组。 如果您需要模块而未指定文件扩展名，则这些是Jest将按从左到右的顺序查找的扩展名
+  // 生成junit.xml 测试报告
+  reporters: ["jest-junit"],
+  // 需要收集单元测试覆盖率的 目录正则
+  collectCoverageFrom: ["lib/**/*.{ts,tsx}", "!**/node_modules/**"],
+  // Jest输出覆盖率信息文件的目录
+  coverageDirectory: 'coverage',
+  // Jest在编写覆盖率报告时使用的记者名称列表。 可以使用任何伊斯坦布尔记者
+  coverageReporters: ['text', 'lcov'],
+
+  // 模块使用的文件扩展名数组。 如果您需要模块而未指定文件扩展名，则这些是Jest将按从左到右的顺序查找的扩展名
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
   globals: {
     'ts-jest': {

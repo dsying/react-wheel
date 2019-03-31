@@ -41,12 +41,13 @@
     + 自动发布
  3. 给自己的项目添加小徽标
 
-### jest-junit 生成 xml格式的 测试报告
+### 安装jest-junit 报告 测试结果
 ```
 // 添加 jest-junit 生成 xml格式的 测试报告
 reporters: ["default", "jest-junit"],
 ```
 ### package.json新增script
+JEST_JUNIT_OUTPUT=./test-results/jest/results.xml 是为了让 circle ci 认识这个目录，从而显示测试报告
 ```
 "scripts": {
   "ci": "cross-env NODE_ENV=test JEST_JUNIT_OUTPUT=./test-results/jest/results.xml jest --config=jest.config.js",

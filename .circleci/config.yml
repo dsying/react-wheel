@@ -1,0 +1,85 @@
+#https://github.com/revolunet/create-react-app-circleci/blob/master/.circleci/config.yml
+
+# 引用默认值defaults
+defaults: &defaults
+  docker:
+    - image: circleci/node:8
+
+# circleci 的version
+version: 2
+
+# 任务
+jobs:
+  # 任务1: 准备
+  prepare:
+    <<: *defaults
+    steps:
+      # 迁出代码
+      - checkout
+      # 给package.json 创建一个快照
+      - restore_cache: # 根据当前代码的package.json 创建一个 MD5
+          keys:
+            - v2-dependencies-{{ checksum "package.json" }} # 以 v2-dependencies-MD5 的值 作为key 创建一个缓存
+      - run: yarn install # yarn install 安装依赖
+      - save_cache: # 保存 缓存， 如果后续 package.json 未发生改变， 都会使用该缓存
+          paths:
+            - node_modules
+          key: v2-dependencies-{{ checksum "package.json" }}
+      - persist_to_workspace:
+          root: .
+          paths:
+            - node_modules
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run: yarn build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist
+            - package.json
+            - LICENSE
+            - README.md
+  # 任务2： 测试
+  test:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      # 运行 yarn ci 命令
+      - run: yarn ci
+      - store_test_results:
+          path: test-results
+  publish:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: .
+      - run: npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+      - run: npm publish
+
+
+# 工作流： 任务的执行顺序
+workflows:
+  version: 2
+  build_accept_deploy:
+    jobs:
+      - prepare
+      - build:
+          requires: # 当前任务的前置依赖
+            - test
+      - test:
+          requires:
+            - prepare
+      - publish:
+          requires:
+            - build
+          filters:
+            tags:
+              only: /^v[0-9]+(\.[0-9]+)*/
+            branches:
+              ignore: /.*/

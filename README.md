@@ -58,3 +58,16 @@ JEST_JUNIT_OUTPUT=./test-results/jest/results.xml 是为了让 circle ci 认识�
 
 ### push 代码
 ### circle ci 官网 执行
+
+## 发布第一版 npm 包
+
++ yarn build 打包
++ 修改package.json
+    + dist 目录下的所有文件 都需要发布
+    ```
+      "files": [
+        "/dist/**/*"
+      ],
+    ```
++ npmjs.org 官网 注册账号
++ yarn publish/npm publish

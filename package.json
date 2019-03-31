@@ -1,16 +1,19 @@
 {
-  "name": "react-ui",
-  "version": "1.0.0",
+  "name": "dsui888",
+  "version": "0.0.2",
   "description": "react+webpack+typescript+scss造轮子",
   "main": "dist/lib/index",
   "types": "dist/lib/index",
+  "files": [
+    "/dist/**/*"
+  ],
   "scripts": {
     "test": "cross-env NODE_ENV=test jest --config=jest.config.js --runInBand",
     "ci": "cross-env NODE_ENV=test JEST_JUNIT_OUTPUT=./test-results/jest/results.xml jest --config=jest.config.js",
     "clear": "rimraf dist",
-    "build:dev": "webpack --config build/webpack.config.dev.js",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.dev.js",
-    "build": "npm run clear && npm run dev"
+    "prod": "cross-env NODE_ENV=production webpack --config build/webpack.config.prod.js",
+    "build": "npm run prod"
   },
   "repository": {
     "type": "git",
@@ -37,6 +40,7 @@
     "babel-jest": "^24.3.1",
     "babel-loader": "^8.0.5",
     "babel-preset-react-app": "^7.0.2",
+    "clean-webpack-plugin": "^2.0.1",
     "cross-env": "^5.2.0",
     "css-loader": "^2.1.1",
     "enzyme": "^3.9.0",

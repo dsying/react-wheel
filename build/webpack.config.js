@@ -1,13 +1,11 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 module.exports = {
   entry: {
     index: path.join(__dirname, '../lib/index.tsx')
   },
   output: {
     path: path.join(__dirname, '../dist/lib'),
-    filename: '[name].[hash].js',
-    publicPath: '/public/',
     library: 'UXCool',
     libraryTarget: 'umd',
   },
@@ -45,8 +43,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, '../index.html')
-    })
+    new CleanWebpackPlugin(),
   ],
 };

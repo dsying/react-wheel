@@ -1,61 +1,22 @@
-# icon组件开发
+# 前端工程化
 
-## webpack中配置 svg-sprite-loader
+## 单元测试覆盖率
+### jest.config.js配置信息
 ```
-{
-  test: /\.svg$/,
-  loader: 'svg-sprite-loader'
-}
+  // 生成测试覆盖率报告(命令行中显示)
+  collectCoverage: true,
+  // 生成junit.xml 测试报告
+  reporters: ["default", "jest-junit"],
+  // 需要收集单元测试覆盖率的 目录正则
+  collectCoverageFrom: ["lib/**/*.{ts,tsx}", "!**/node_modules/**"],
+  // Jest输出覆盖率信息文件的目录
+  coverageDirectory: 'coverage',
+  // Jest在编写覆盖率报告时使用的记者名称列表。 可以使用任何伊斯坦布尔记者
+  coverageReporters: ['text', 'lcov'],
 ```
-目的：
-+ 让webpack工程识别 svg文件
-+ 在 输出的html中 埋入一个 svg标签，后续代码可通过 id 使用指定的svg图标
-
-## custom.d.ts
-你需要在typescript 中声明一下svg是个什么玩意
-```ts
-declare module '*.svg' {
-  const content: any;
-  export default content;
-}
+### package.json新增script
 ```
-如果不加： 
-```
-import '../icon/weixin.svg' //有效
-import weixin from '../icon/weixin.svg' //无效
-```
-
-## tsconfig.json
-```
-  "include": [
-    "lib/**/*" // 声明 这里面都是ts的源文件
-  ],
-```
-## 使用svg
-通过svg图标的 id 调用
-```ts
-import '../icon/weixin.svg';
-
-interface IconProps {
-  name: string,
-}
-
-const Icon: React.FunctionComponent<IconProps> = (props) => {
-  return (
-    <svg>
-      <use xlinkHref="#weixin"></use>
-    </svg>
-  );
-};
-```
-
-## 动态导入所有svg 
-不需要引入所有的svg文件， 只需要引入一个目录
-```js
-let importAll = (requireContext) => requireContext.keys().forEach(requireContext);
-try {
-  importAll(require.context('./icons/', true, /\.svg$/))
-} catch (error) {
-  // console.log(error)
-}
+"scripts": {
+  "ci": "cross-env NODE_ENV=test JEST_JUNIT_OUTPUT=./test-results/jest/results.xml jest --config=jest.config.js",
+},
 ```

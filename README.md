@@ -71,3 +71,41 @@ JEST_JUNIT_OUTPUT=./test-results/jest/results.xml 是为了让 circle ci 认识�
     ```
 + npmjs.org 官网 注册账号
 + yarn publish/npm publish
+
+
+## deploy.sh 自动更新版本号
+```sh
+npm version $1 && \
+git push
+```
+npm version patch : 打补丁
+
+npm version minor : 版本升级
+
+## 
+目前项目每次git push后， circleci 都会执行 workflow 即自动测试，打包，发布
+
+我们可以通过 git tag 来控制 circleci 是否执行
+配置 .circleci/config.yml
+```yml
+# 工作流： 任务的执行顺序
+workflows:
+  version: 2
+  build_accept_deploy:
+    jobs:
+      - prepare
+      - build:
+          requires: # 当前任务的前置依赖
+            - test
+      - test:
+          requires:
+            - prepare
+      - publish:
+          requires:
+            - build
+          filters: # 过滤条件 符合以下条件的 才会执行 publish job 
+            tags:
+              only: /^v[0-9]+(\.[0-9]+)*/ # 只有 以 v开头接一串数字的 tag提交  才会执行 publish
+            branches:
+              ignore: /.*/ # 忽略所有的 分支 提交
+```              

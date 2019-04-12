@@ -82,7 +82,7 @@ npm version patch : 打补丁
 
 npm version minor : 版本升级
 
-## 
+## circleci tag filter
 目前项目每次git push后， circleci 都会执行 workflow 即自动测试，打包，发布
 
 我们可以通过 git tag 来控制 circleci 是否执行

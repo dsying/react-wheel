@@ -81,8 +81,8 @@ workflows:
       - publish:
           requires:
             - build
-#          filters:
-#            tags:
-#              only: /^v[0-9]+(\.[0-9]+)*/
-#            branches:
-#              ignore: /.*/
+          filters: # 过滤条件 符合以下条件的 才会执行 publish job 
+            tags:
+              only: /^v[0-9]+(\.[0-9]+)*/ # 只有 以 v开头接一串数字的 tag提交  才会执行 publish
+            branches:
+              ignore: /.*/ # 忽略所有的 分支 提交
